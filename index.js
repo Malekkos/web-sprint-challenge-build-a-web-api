@@ -12,3 +12,14 @@ I need this code, but don't know where, perhaps should make some middleware, don
 
 Pull your server into this file and start it!
 */
+require("dotenv").config()
+
+
+const express = require("express")
+const server = express()
+
+const port = process.env.PORT
+
+server.listen(port, () => {
+  console.log(`Server is listening on port ${port}...`)
+})
