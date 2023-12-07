@@ -18,7 +18,7 @@ require("dotenv").config()
 const express = require("express")
 const server = express()
 
-const port = process.env.PORT
+const port = process.env.PORT || 9000
 
 server.use(express.json())
 
