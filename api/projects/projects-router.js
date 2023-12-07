@@ -17,8 +17,16 @@ router.get("/", (req, res, next) => {
   })
 })
 
-router.get("/:id", (req, res, next) => {
-
+router.get("/:id", validateUserId, (req, res, next) => {
+  console.log("this is the req.user", req.user, "this is the req.id", req.id)
+  Projects.get(req.id)
+  .then(project => {
+    console.log(project)
+    res.status(200).json(project)
+  })
+  .catch(error => {
+    next(error)
+  })
 })
 
 router.post("/", (req, res, next) => {
