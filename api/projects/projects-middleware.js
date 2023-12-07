@@ -6,7 +6,6 @@ async function validateUserId(req, res, next) {
   console.log("Validating User ID...")
   const id = req.params.id
   const user = await Projects.get(req.params.id)
-  // console.log(user)
   if(!user) {
     res.status(404).json({message: "this id doesnt exist!"})
   } else {

@@ -18,13 +18,11 @@ router.get("/", (req, res, next) => {
 })
 
 router.get("/:id", validateUserId, (req, res, next) => {
-  console.log("this is the req.user", req.user, "this is the req.id", req.id)
   if(!req.user || !req.id) {
     console.log("you fooled yourself!")
   } else {
   Projects.get(req.id)
   .then(project => {
-    console.log(project)
     res.status(200).json(project)
   })
   .catch(error => {
