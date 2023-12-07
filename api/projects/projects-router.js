@@ -1,11 +1,12 @@
 // Write your "projects" router here!
 const express = require("express")
-// const { } = require("./projects-middleware") // middleware import once done
+const { validateUserId } = require("./projects-middleware") // middleware import once done
 const Projects = require("./projects-model")
 const router = express.Router()
 
 
 router.get("/", (req, res, next) => {
+  console.log("getting projects...")
   Projects.get()
   .then(projects => {
     console.log(projects)
@@ -39,7 +40,7 @@ router.get("/:id/actions", (req, res, next) => {
 router.use((error, req, res, next) => {
   res.status(error.status || 500).json({
     message: error.message,
-    customeMessage: "Something bad has happened inside of the projects router"
+    customMessage: "Something bad has happened inside of the projects router"
   })
 })
 
