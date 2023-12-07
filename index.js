@@ -20,6 +20,8 @@ const server = express()
 
 const port = process.env.PORT
 
+server.use(express.json())
+
 server.listen(port, () => {
   console.log(`Server is listening on port ${port}...`)
 })
