@@ -14,13 +14,10 @@ Pull your server into this file and start it!
 */
 require("dotenv").config()
 
-
-const express = require("express")
-const server = express()
+const server = require("./api/server.js")
 
 const port = process.env.PORT || 9000
 
-server.use(express.json())
 
 server.listen(port, () => {
   console.log(`Server is listening on port ${port}...`)
