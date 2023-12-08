@@ -48,8 +48,24 @@ router.post("/", validateRequestBody, (req, res, next) => {
 }
 })
 
-router.put("/:id", validateUserId, (req, res, next) => {
-
+router.put("/:id", validateUserId, validateRequestBody, (req, res, next) => {
+  const body = req.body.completed
+  if(body === undefined || !req.name || !req.description) {
+    res.status(400).json({message: "lol"})
+  } else {
+  if(!req.id) {
+    res.status(404).json({message: "You fooled yourself!"})
+  } else {
+    Projects.update(req.id, {name: req.name, description: req.description, completed: req.completed})
+    .then(project => {
+      // console.log("this is the project", project)
+      res.status(201).json(project)
+    })
+    .catch(error => {
+      next(error)
+    })
+  }
+}
 })
 
 router.delete("/:id", (req, res, next) => {
