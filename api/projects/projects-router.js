@@ -2,6 +2,7 @@
 const express = require("express")
 const { validateUserId, validateRequestBody } = require("./projects-middleware") // middleware import once done
 const Projects = require("./projects-model")
+const Actions = require("../actions/actions-model")
 const router = express.Router()
 
 
@@ -78,8 +79,14 @@ router.delete("/:id", validateUserId, (req, res, next) => {
   })
 })
 
-router.get("/:id/actions", (req, res, next) => {
-
+router.get("/:id/actions", validateUserId, async (req, res, next) => {
+  Projects.getProjectActions(req.id)
+  .then(project => {
+    res.status(200).json(project)
+  })
+  .catch(error => {
+    next(error)
+  })
 })
 
 router.use((error, req, res, next) => {
