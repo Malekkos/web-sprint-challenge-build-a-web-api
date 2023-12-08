@@ -6,6 +6,13 @@ const router = express.Router()
 
 router.get("/", (req, res, next) => {
 
+  Actions.get()
+  .then(actions => {
+    res.status(200).json(actions)
+  })
+  .catch(error => {
+    next(error)
+  })
 })
 
 router.get("/:id", (req, res, next) => {
