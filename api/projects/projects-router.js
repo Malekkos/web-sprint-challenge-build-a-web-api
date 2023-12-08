@@ -68,8 +68,14 @@ router.put("/:id", validateUserId, validateRequestBody, (req, res, next) => {
 }
 })
 
-router.delete("/:id", (req, res, next) => {
-
+router.delete("/:id", validateUserId, (req, res, next) => {
+  Projects.remove(req.id)
+  .then(project => {
+    res.status(204).json(project)
+  })
+  .catch(error => {
+    next(error)
+  })
 })
 
 router.get("/:id/actions", (req, res, next) => {
