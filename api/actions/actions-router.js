@@ -25,8 +25,19 @@ router.get("/:id", validateUserActionsId, (req, res, next) => {
   })
 })
 
-router.post("/", (req, res, next) => {
-
+router.post("/", validateActionsRequestBody, (req, res, next) => {
+  if(req.notes === undefined || req.description === undefined || req.projectId === undefined) {
+    res.status(400).json({message: "You are missing vital fields"})
+  } else {
+  Actions.insert({project_id: req.projectId, description: req.description ,notes: req.notes, completed: req.completed})
+  .then(createdAction => {
+    console.log(createdAction)
+    res.status(201).json(createdAction)
+  })
+  .catch(error => {
+    next(error)
+  })
+  }
 })
 
 router.put("/:id", (req, res, next) => {

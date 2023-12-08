@@ -16,13 +16,20 @@ async function validateUserActionsId(req, res, next) {
 
 async function validateActionsRequestBody(req, res, next) {
   console.log("Validating request body...")
-  const body = req.body
-  if(!body.name || !body.description) {
-    console.log("there is incompleted fields")
+  const projectId = req.body.project_id
+  const notes = req.body.notes
+  const description = req.body.description
+  const completed = req.body.completed
+  if(!projectId || !notes || !description) {
+    console.log("You are missing required fields!")
+    req.projectId = undefined
+    req.notes = undefined
+    req.description = undefined
   } else {
-    req.name = req.body.name
-    req.description = req.body.description
-    req.completed = req.body.completed
+    req.projectId = projectId
+    req.notes = notes
+    req.description = description
+    req.completed = completed
   }
   next()
 }
