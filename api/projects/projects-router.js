@@ -79,7 +79,7 @@ router.delete("/:id", validateUserId, (req, res, next) => {
   })
 })
 
-router.get("/:id/actions", validateUserId, async (req, res, next) => {
+router.get("/:id/actions", validateUserId, (req, res, next) => {
   Projects.getProjectActions(req.id)
   .then(project => {
     res.status(200).json(project)
