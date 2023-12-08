@@ -33,7 +33,6 @@ router.get("/:id", validateUserId, (req, res, next) => {
 
 
 router.post("/", validateRequestBody, (req, res, next) => {
-  console.log("this is the req.name", req.name, "this is the req.description", req.description)
   if(!req.name || !req.description) {
     res.status(400).json({
       message: "You fooled yourself!"
@@ -49,7 +48,7 @@ router.post("/", validateRequestBody, (req, res, next) => {
 }
 })
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id", validateUserId, (req, res, next) => {
 
 })
 
