@@ -54,8 +54,14 @@ router.put("/:id", validateActionsRequestBody, (req, res, next) => {
   }
 })
 
-router.delete("/:id", (req, res, next) => {
-
+router.delete("/:id",validateUserActionsId, (req, res, next) => {
+  Actions.remove(req.id)
+  .then(removedAction => {
+    res.status(200).json(removedAction)
+  })
+  .catch(error => {
+    next(error)
+  })
 })
 
 router.use((error, req, res, next) => {
