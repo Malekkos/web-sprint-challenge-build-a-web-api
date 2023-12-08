@@ -40,8 +40,18 @@ router.post("/", validateActionsRequestBody, (req, res, next) => {
   }
 })
 
-router.put("/:id", (req, res, next) => {
-
+router.put("/:id", validateActionsRequestBody, (req, res, next) => {
+  if(req.notes === undefined || req.description === undefined || req.projectId === undefined) {
+    res.status(400).json({message: "You are missing vital fields"})
+  } else {
+    Actions.update(req.projectId, {description: req.description ,notes: req.notes, completed: req.completed})
+    .then(updatedAction => {
+      res.status(202).json(updatedAction)
+    })
+    .catch(error => {
+      next(error)
+    })
+  }
 })
 
 router.delete("/:id", (req, res, next) => {
